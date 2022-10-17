@@ -17,7 +17,9 @@ class AssistService extends GetxService {
     }
 
     try {
-      List<Assist> listResult = response.body.map<Assist>((item) => Assist.fromMap(item)).toList();
+      List<Assist> listResult = 
+      
+      response.body.map<Assist>((item) => Assist.fromMap(item)).toList();
       return Future.sync(() => listResult);
     
     }

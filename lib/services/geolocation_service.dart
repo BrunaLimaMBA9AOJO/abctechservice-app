@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 
 abstract class GeolocationServiceInterface {
@@ -25,7 +24,7 @@ class GeolocationService implements GeolocationServiceInterface {
   Future<bool> _enableService() async {
 
     _serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (_serviceEnabled){
+    if (!_serviceEnabled){
       return Future.error('Geolocation service is disabled');
     }
     return Future.sync(() => true);

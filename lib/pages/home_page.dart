@@ -15,7 +15,12 @@ class HomePage extends GetView<AssistController>{
       itemCount: assist.length,
       itemBuilder: (
         ((context, index) => 
-          ListTile(title: Text(assist[index].name)))));
+          ListTile(
+            title: Text(assist[index].name),             
+            selectedColor: Colors.purple,
+            selected: controller.isSelected(index),
+            onTap: () => controller.selectAssist(index),
+        ))));
   }
 
 
@@ -28,29 +33,27 @@ class HomePage extends GetView<AssistController>{
 
       body: Container(
         constraints: const BoxConstraints.expand(),
-        child: Column(
+        child: SingleChildScrollView ( child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[ 
             Row(
               children: const [
-                Expanded(child: Text('Serviços Disponíveis:', textAlign: TextAlign.center))
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(child: TextButton(
-                  onPressed: controller.getAssistList,
-                  child: const Text('Recarregar'),))
+                Expanded(
+                  child: Padding(padding: EdgeInsets.all(15), 
+                  child: Text('Serviços Disponíveis:', textAlign: TextAlign.center, 
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                )))
               ],
             ),
 
           controller.obx((state) => renderAssist(state ?? []),
-          onEmpty: const Text('Nenhum'),
-          onError: ((error) => Text(error.toString())))
+          onEmpty: const Text('Nenhuma assistência disponível'),
+          onError: ((error) => Text(error.toString()))),
 
           ],
-        ),
+        )),
       ),
+      floatingActionButton: FloatingActionButton( onPressed: () => controller.finishSelectAssist(), child: const Icon(Icons.done)),
     );
   }
 
