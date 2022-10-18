@@ -16,7 +16,7 @@ class OrderPage extends GetView<OrderController> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildForm(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Criação de Ordem de Serviço" ,textAlign: TextAlign.center),
@@ -104,5 +104,20 @@ class OrderPage extends GetView<OrderController> {
                 ),
               ),
             )));
+  
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("Ordem de serviço"),
+        ),
+        body: Container(
+            constraints: const BoxConstraints.expand(),
+            padding: const EdgeInsets.all(10.0),
+            child: controller.obx((state) => buildForm(context),
+                onLoading: const Center(child: CircularProgressIndicator()))));
+  }
+
 }

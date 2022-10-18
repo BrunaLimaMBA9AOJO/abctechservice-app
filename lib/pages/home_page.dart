@@ -53,6 +53,7 @@ class HomePage extends GetView<AssistController>{
           ],
         )),
       ),
+      
       floatingActionButton: FloatingActionButton( onPressed: () => controller.finishSelectAssist(), child: const Icon(Icons.done)),
     );
   }
