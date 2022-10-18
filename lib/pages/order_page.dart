@@ -17,14 +17,7 @@ class OrderPage extends GetView<OrderController> {
 
   @override
   Widget buildForm(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text("Criação de Ordem de Serviço" ,textAlign: TextAlign.center),
-        ),
-        body: Container(
-            constraints: const BoxConstraints.expand(),
-            padding: const EdgeInsets.all(10.0),
-            child: SingleChildScrollView(
+    return SingleChildScrollView(
               child: Form(
                 key: controller.formKey,
                 child: Column(
@@ -60,7 +53,7 @@ class OrderPage extends GetView<OrderController> {
                     ]),
                     Ink(
                           decoration: const ShapeDecoration(
-                              shape: CircleBorder(), color: Colors.deepPurple),
+                              shape: CircleBorder(), color: Colors.lightBlue),
                           child: IconButton(
                               icon: const Icon(
                                 Icons.search,
@@ -88,9 +81,10 @@ class OrderPage extends GetView<OrderController> {
                     Row(children: [
                       Expanded(
                         child: ElevatedButton(
+                            
                             onPressed: () => controller.finishStartOrder(),
-                            child: Obx(
-                              () {
+                            
+                            child: Obx(() {
                                 if (controller.screenState.value ==
                                     OrderState.creating) {
                                   return const Text("Confirmar");
@@ -103,7 +97,7 @@ class OrderPage extends GetView<OrderController> {
                   ],
                 ),
               ),
-            )));
+            );
   
   }
 
@@ -111,7 +105,7 @@ class OrderPage extends GetView<OrderController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Ordem de serviço"),
+          title: const Text("Criação de Ordem de Serviço"),
         ),
         body: Container(
             constraints: const BoxConstraints.expand(),

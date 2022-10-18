@@ -54,6 +54,7 @@ class OrderController extends GetxController with StateMixin<OrderCreated> {
               start: start,
               end: null);
         });
+
         screenState.value = OrderState.started;
         break;
       case OrderState.started:
