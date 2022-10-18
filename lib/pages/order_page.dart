@@ -53,10 +53,10 @@ class OrderPage extends GetView<OrderController> {
                     ]),
                     Ink(
                           decoration: const ShapeDecoration(
-                              shape: CircleBorder(), color: Colors.lightBlue),
+                              shape: CircleBorder(), color: Colors.purpleAccent),
                           child: IconButton(
                               icon: const Icon(
-                                Icons.search,
+                                Icons.add,
                                 color: Colors.white,
                                 
                               ),
