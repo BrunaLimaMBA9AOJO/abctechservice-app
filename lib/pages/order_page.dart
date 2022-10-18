@@ -19,7 +19,7 @@ class OrderPage extends GetView<OrderController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Teste"),
+          title: const Text("Criação de Ordem de Serviço" ,textAlign: TextAlign.center),
         ),
         body: Container(
             constraints: const BoxConstraints.expand(),
@@ -33,7 +33,7 @@ class OrderPage extends GetView<OrderController> {
                     Row(children: const [
                       Expanded(
                           child: Text(
-                        'Preencha o fomulário de ordem de serviço',
+                        '1 - Informe o código do prestador',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 16.0, fontWeight: FontWeight.bold),
@@ -44,7 +44,7 @@ class OrderPage extends GetView<OrderController> {
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
-                          labelText: "Código do prestador"),
+                          labelText: "Insira apenas dígitos"),
                       textAlign: TextAlign.center,
                     ),
                     Row(children: [
@@ -52,41 +52,53 @@ class OrderPage extends GetView<OrderController> {
                           child: Padding(
                               padding: EdgeInsets.only(top: 25, bottom: 25),
                               child: Text(
-                                'Selecione os serviços a serem prestados',
-                                textAlign: TextAlign.left,
+                                '2 - Selecione os serviços a serem prestados',
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.bold),
+                                  fontSize: 16.0, fontWeight: FontWeight.bold),
                               ))),
-                      Ink(
+                    ]),
+                    Ink(
                           decoration: const ShapeDecoration(
-                              shape: CircleBorder(), color: Colors.blueAccent),
+                              shape: CircleBorder(), color: Colors.deepPurple),
                           child: IconButton(
                               icon: const Icon(
                                 Icons.search,
                                 color: Colors.white,
+                                
                               ),
                               onPressed: () => controller.editAssists()),
                           width: 40,
                           height: 40)
-                    ]),
+                    ,
                     Obx(
                       () => renderAssists(controller.selectedAssists),
                     ),
                     Row(children: [
+                      const Expanded(
+                          child: Padding(
+                              padding: EdgeInsets.only(top: 25, bottom: 25),
+                              child: Text(
+                                '3 - Revise os itens selecionados antes de confirmar',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 16.0, fontWeight: FontWeight.bold),
+                              ))),
+                    ]),
+                    Row(children: [
                       Expanded(
-                  child: ElevatedButton(
-                      onPressed: () => controller.finishStartOrder(),
-                      child: Obx(
-                        () {
-                          if (controller.screenState.value ==
-                              OrderState.creating) {
-                            return const Text("Iniciar");
-                          } else {
-                            return const Text("Finalizar");
-                          }
-                        },
-                      )))
+                        child: ElevatedButton(
+                            onPressed: () => controller.finishStartOrder(),
+                            child: Obx(
+                              () {
+                                if (controller.screenState.value ==
+                                    OrderState.creating) {
+                                  return const Text("Confirmar");
+                                } else {
+                                  return const Text("Finalizar");
+                                }
+                              },
+                            )))
                     ]),
                   ],
                 ),

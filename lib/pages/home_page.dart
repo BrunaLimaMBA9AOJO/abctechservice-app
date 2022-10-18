@@ -29,7 +29,7 @@ class HomePage extends GetView<AssistController>{
     return Scaffold(
       
       appBar: AppBar(
-        title: const Text("Serviços")),
+        title: const Text("Seleção de Serviços")),
 
       body: Container(
         constraints: const BoxConstraints.expand(),
