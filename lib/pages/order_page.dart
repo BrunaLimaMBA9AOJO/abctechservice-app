@@ -40,7 +40,7 @@ class OrderPage extends GetView<OrderController> {
                       ))
                     ]),
                     TextFormField(
-                      controller: controller.operatorIDController,
+                      controller: controller.operatorIdController,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
@@ -75,9 +75,18 @@ class OrderPage extends GetView<OrderController> {
                     ),
                     Row(children: [
                       Expanded(
-                          child: ElevatedButton(
-                              onPressed: () => controller.finishStartOrder(),
-                              child: const Text("Finalizar")))
+                  child: ElevatedButton(
+                      onPressed: () => controller.finishStartOrder(),
+                      child: Obx(
+                        () {
+                          if (controller.screenState.value ==
+                              OrderState.creating) {
+                            return const Text("Iniciar");
+                          } else {
+                            return const Text("Finalizar");
+                          }
+                        },
+                      )))
                     ]),
                   ],
                 ),
