@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:abctechapp/controller/assist_controller.dart';
 import 'package:abctechapp/model/assist.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +33,7 @@ class HomePage extends GetView<AssistController>{
       body: Container(
         constraints: const BoxConstraints.expand(),
         child: SingleChildScrollView ( child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[ 
             Row(
               children: const [
@@ -44,12 +43,10 @@ class HomePage extends GetView<AssistController>{
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 )))
               ],
-            ),
-
+              ),
           controller.obx((state) => renderAssist(state ?? []),
           onEmpty: const Text('Nenhuma assistência disponível'),
           onError: ((error) => Text(error.toString()))),
-
           ],
         )),
       ),
@@ -57,5 +54,4 @@ class HomePage extends GetView<AssistController>{
       floatingActionButton: FloatingActionButton( onPressed: () => controller.finishSelectAssist(), child: const Icon(Icons.done)),
     );
   }
-
 }

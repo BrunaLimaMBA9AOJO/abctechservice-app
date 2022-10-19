@@ -18,88 +18,90 @@ class OrderPage extends GetView<OrderController> {
   @override
   Widget buildForm(BuildContext context) {
     return SingleChildScrollView(
-              child: Form(
-                key: controller.formKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Row(children: const [
-                      Expanded(
-                          child: Text(
-                        '1 - Informe o código do prestador',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 16.0, fontWeight: FontWeight.bold),
-                      ))
+        child: Form(
+        key: controller.formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Row(children: const [
+              Expanded(
+                child: Text('1 - Informe o código do prestador',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                  fontSize: 16.0, fontWeight: FontWeight.bold),
+                ))
+              ]),
+            
+            TextFormField(
+              controller: controller.operatorIdController,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                labelText: "Insira apenas dígitos"),
+                validator: (value) {
+                  if (value != null && value.isEmpty){
+                    return 'Campo obrigatório!';
+                  }
+                  return null;
+                  },
+              ),
+                    
+              Row(children: [
+                const Expanded(
+                  child: Padding(
+                  padding: EdgeInsets.only(top: 25, bottom: 25),
+                  child: Text('2 - Selecione os serviços a serem prestados',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                    fontSize: 16.0, fontWeight: FontWeight.bold),
+                ))),
+              ]),
+
+              CircleAvatar(
+                radius: 30,
+                backgroundColor: Colors.purpleAccent, 
+                child: IconButton(
+                  icon: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => controller.editAssists(),
+                ),
+              ),                    
+              
+              Obx(
+                () => renderAssists(controller.selectedAssists),
+              ),
+              
+              Row(children: [
+                const Expanded(
+                    child: Padding(
+                        padding: EdgeInsets.only(top: 25, bottom: 25),
+                        child: Text('3 - Revise os itens selecionados antes de confirmar',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                          fontSize: 16.0, fontWeight: FontWeight.bold),
+                      ))),
                     ]),
-                    TextFormField(
-                      controller: controller.operatorIdController,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                          labelText: "Insira apenas dígitos"),
-                      textAlign: TextAlign.center,
-                      validator: (value) {
-                        if (value != null && value.isEmpty){
-                          return 'Campo obrigatório!';
-                        }
-                        return null;
+
+              Row(children: [
+                Expanded(
+                  child: ElevatedButton(
+                      onPressed: () {
+                        final isValidForm = controller.formKey.currentState!.validate();
+                        isValidForm ? controller.finishStartOrder() : null;
                       },
-                    ),
-                    Row(children: [
-                      const Expanded(
-                          child: Padding(
-                              padding: EdgeInsets.only(top: 25, bottom: 25),
-                              child: Text(
-                                '2 - Selecione os serviços a serem prestados',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 16.0, fontWeight: FontWeight.bold),
-                              ))),
-                    ]),
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundColor: Colors.purpleAccent, 
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.add,
-                          color: Colors.white,
-                        ),
-                        onPressed: () => controller.editAssists(),
-                      ),
-                    ),                    
-                    Obx(
-                      () => renderAssists(controller.selectedAssists),
-                    ),
-                    Row(children: [
-                      const Expanded(
-                          child: Padding(
-                              padding: EdgeInsets.only(top: 25, bottom: 25),
-                              child: Text(
-                                '3 - Revise os itens selecionados antes de confirmar',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 16.0, fontWeight: FontWeight.bold),
-                              ))),
-                    ]),
-                    Row(children: [
-                      Expanded(
-                        child: ElevatedButton(
-                            onPressed: () {
-                              final isValidForm = controller.formKey.currentState!.validate();
-                              isValidForm ? controller.finishStartOrder() : null;
-                            },
                                                         
-                            child: Obx(() {
-                                if (controller.screenState.value ==
-                                    OrderState.creating) {
-                                  return const Text("Confirmar");
-                                } else {
-                                  return const Text("Finalizar");
-                                }
-                              },
-                            )))
+                      child: Obx(() {
+                          if (controller.screenState.value ==
+                              OrderState.creating) {
+                            return const Text("Confirmar");
+                          } else {
+                            return const Text("Finalizar");
+                          }
+                        },
+                      )))
                     ]),
                   ],
                 ),
@@ -114,11 +116,11 @@ class OrderPage extends GetView<OrderController> {
         appBar: AppBar(
           title: const Text("Criação de Ordem de Serviço"),
         ),
+
         body: Container(
             constraints: const BoxConstraints.expand(),
             padding: const EdgeInsets.all(10.0),
             child: controller.obx((state) => buildForm(context),
                 onLoading: const Center(child: CircularProgressIndicator()))));
   }
-
 }
