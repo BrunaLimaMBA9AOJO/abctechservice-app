@@ -20,6 +20,7 @@ class OrderPage extends GetView<OrderController> {
     return SingleChildScrollView(
               child: Form(
                 key: controller.formKey,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -39,6 +40,12 @@ class OrderPage extends GetView<OrderController> {
                       decoration: const InputDecoration(
                           labelText: "Insira apenas dígitos"),
                       textAlign: TextAlign.center,
+                      validator: (value) {
+                        if (value != null && value.isEmpty){
+                          return 'Campo obrigatório!';
+                        }
+                        return null;
+                      },
                     ),
                     Row(children: [
                       const Expanded(
@@ -52,8 +59,7 @@ class OrderPage extends GetView<OrderController> {
                               ))),
                     ]),
                     Ink(
-                          decoration: const ShapeDecoration(
-                              shape: CircleBorder(), color: Colors.purpleAccent),
+                          decoration: const ShapeDecoration(shape: CircleBorder(), color: Colors.purpleAccent),
                           child: IconButton(
                               icon: const Icon(
                                 Icons.add,
@@ -62,8 +68,7 @@ class OrderPage extends GetView<OrderController> {
                               ),
                               onPressed: () => controller.editAssists()),
                           width: 40,
-                          height: 40)
-                    ,
+                          height: 40),
                     Obx(
                       () => renderAssists(controller.selectedAssists),
                     ),
@@ -81,9 +86,11 @@ class OrderPage extends GetView<OrderController> {
                     Row(children: [
                       Expanded(
                         child: ElevatedButton(
-                            
-                            onPressed: () => controller.finishStartOrder(),
-                            
+                            onPressed: () {
+                              final isValidForm = controller.formKey.currentState!.validate();
+                              isValidForm ? controller.finishStartOrder() : null;
+                            },
+                                                        
                             child: Obx(() {
                                 if (controller.screenState.value ==
                                     OrderState.creating) {
