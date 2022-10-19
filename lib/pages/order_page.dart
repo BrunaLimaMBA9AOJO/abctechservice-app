@@ -58,17 +58,17 @@ class OrderPage extends GetView<OrderController> {
                                   fontSize: 16.0, fontWeight: FontWeight.bold),
                               ))),
                     ]),
-                    Ink(
-                          decoration: const ShapeDecoration(shape: CircleBorder(), color: Colors.purpleAccent),
-                          child: IconButton(
-                              icon: const Icon(
-                                Icons.add,
-                                color: Colors.white,
-                                
-                              ),
-                              onPressed: () => controller.editAssists()),
-                          width: 40,
-                          height: 40),
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundColor: Colors.purpleAccent, 
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.add,
+                          color: Colors.white,
+                        ),
+                        onPressed: () => controller.editAssists(),
+                      ),
+                    ),                    
                     Obx(
                       () => renderAssists(controller.selectedAssists),
                     ),
